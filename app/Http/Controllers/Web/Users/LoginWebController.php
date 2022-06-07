@@ -21,7 +21,8 @@ class LoginWebController extends Controller
             $user_id = User::where('email',$request->input('email'))->first();
             Session::put("user_id", $user_id->id);
             Session::put("email", $user_id->email);
-            return redirect()->route('web');
+
+            return redirect()->route('web')->with('success','Đăng nhập thành công');
         }else{
             dd($request);
         }

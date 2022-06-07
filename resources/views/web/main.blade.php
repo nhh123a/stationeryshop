@@ -658,7 +658,18 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		<!-- //for bootstrap working -->
 	<!-- //js-files -->
 
+    <script>
+        $(document).ready(function(){
+            $("#select").on("change",function(){
+                var url = $("#select").val();
+                if(url){
+                    window.location = url;
+                }
+                return false;
+            })
+        })
 
+    </script>
 </body>
 
 </html>

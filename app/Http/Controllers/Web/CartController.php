@@ -59,22 +59,22 @@ class CartController extends Controller
 
     function buy(){
         $data = Cart::where('user_id',Session::get('user_id'))->get();
-
-        try{
-            for ($i=0; $i < $data->count() ; $i++) {
-                Order::create([
-                    'user_id' => Session::get('user_id'),
-                    'product_id' => $data[$i]->p_id,
-                    'qty' => $data[$i]->qty,
-                    'p_status' => 'Completed',
-                ]);
+        if($data->count()>0){
+            try{
+                for ($i=0; $i < $data->count() ; $i++) {
+                    Order::create([
+                        'user_id' => Session::get('user_id'),
+                        'product_id' => $data[$i]->p_id,
+                        'qty' => $data[$i]->qty,
+                        'p_status' => 'Completed',
+                    ]);
+                }
+                $cart = Cart::where('user_id',Session::get('user_id'));
+                $cart->delete();
+                return redirect()->back()->with('success','Đặt hàng thành công');
+            }catch (\Exception $err){
+                return redirect()->back()->with('error',$err->getMessage());
             }
-            $cart = Cart::where('user_id', Session::get('user_id'));
-            $cart->delete();
-            return redirect()->back()->with('success','Đặt hàng thành công');
-        }catch (\Exception $err){
-            dd($err);
-            return redirect()->back()->with('error',$err->getMessage());
         }
     }
 }

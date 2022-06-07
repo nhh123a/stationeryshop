@@ -34,6 +34,17 @@
 <!-- product right -->
 <div class="agileinfo-ads-display col-md-9">
 <div class="wrapper">
+    <label for="cars">Sắp xếp:</label>
+    <form action="">
+        @csrf
+    <select name="select" id="select">
+        <option value=""">--Chọn--</option>
+        <option value="{{Request::url()}}?sort_by=new">Mới nhất</option>
+        <option value="{{Request::url()}}?sort_by=title">A-Z</option>
+        <option value="{{Request::url()}}?sort_by=price">Gía</option>
+
+    </select>
+</form>
     <div class="product-sec1">
     @foreach ($products as $product)
         <div class="col-xs-4 product-men">
@@ -68,13 +79,13 @@
                                 <input type="hidden" name="cancel_return" value=" ">
                                 <input type="submit" name="submit" value="Add to cart" class="button">
                             </fieldset>
-                        </form>
-                    </div> --}}
+                        </form>--}}
+                    </div>
 
                 </div>
             </div>
             <span>
-                {{ $products->links('admin.paginate') }}
+
             </span>
         </div>
 
@@ -83,4 +94,6 @@
     </div>
 
 </div>
+
+
 @endsection
